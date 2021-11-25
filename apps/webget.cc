@@ -6,6 +6,7 @@
 
 using namespace std;
 
+/*
 void get_URL(const string &host, const string &path) {
     // Your code here.
 
@@ -19,6 +20,19 @@ void get_URL(const string &host, const string &path) {
 
     cerr << "Function called: get_URL(" << host << ", " << path << ").\n";
     cerr << "Warning: get_URL() has not been implemented yet.\n";
+}
+*/
+void get_URL(const string &host, const string &path) {
+
+    TCPSocket sock{};
+    sock.connect(Address(host,"http"));
+    sock.write("GET "+path+" HTTP/1.1\r\nHost: "+host+"\r\n\r\n");
+    sock.shutdown(SHUT_WR);
+    while(!sock.eof()){
+        cout<<sock.read();
+    }
+    sock.close();
+    return;
 }
 
 int main(int argc, char *argv[]) {

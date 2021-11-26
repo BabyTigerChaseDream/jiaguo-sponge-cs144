@@ -1,0 +1,36 @@
+# valid with header
+connectionSocket,addr,sentense 
+<socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 50007), raddr=('127.0.0.1', 56210)> 
+('127.0.0.1', 56210) 
+b'GET /kkkkkkkkkkkkkkkkkkkkkk HTTP/1.1\r\n
+Host: 127.0.0.1:50007\r\n
+Connection: keep-alive\r\n
+Cache-Control: max-age=0\r\n
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"\r\n
+sec-ch-ua-mobile: ?0\r\n
+sec-ch-ua-platform: "Linux"\r\n
+Upgrade-Insecure-Requests: 1\r\n
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36\r\n
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n
+Sec-Fetch-Site: none\r\nSec-Fetch-Mode: navigate\r\nSec-Fetch-User: ?1\r\nSec-Fetch-Dest: document\r\n
+Accept-Encoding: gzip, deflate, br\r\n
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,cy;q=0.6\r\n
+Cookie: csrftoken=r8EtL8N8IhlJxvCmur1I1jdAW0bqaUZV13LPNvbRubS3wDzuUENrBX6W6E19wbPk; 
+sessionid=194gvklb7ontocqte4km072706zmft83\r\n\r\n'
+
+#### invalid without header added ####
+connectionSocket,addr,sentense 
+<socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 50007), raddr=('127.0.0.1', 35648)> 
+('127.0.0.1', 35648) 
+b'GET / HTTP/1.1\r\n
+Host: 127.0.0.1:50007\r\n
+Connection: keep-alive\r\n
+Cache-Control: max-age=0\r\n
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"\r\n
+sec-ch-ua-mobile: ?0\r\n
+sec-ch-ua-platform: "Linux"\r\nUpgrade-Insecure-Requests: 1\r\n
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36\r\n
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n
+Sec-Fetch-Site: none\r\nSec-Fetch-Mode: navigate\r\nSec-Fetch-User: ?1\r\n
+Sec-Fetch-Dest: document\r\nAccept-Encoding: gzip, deflate, br\r\n
+Accept-Language: zh-CN,zh;q=0.9\r\n\r\n'

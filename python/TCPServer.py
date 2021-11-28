@@ -1,12 +1,12 @@
-import socket
+from socket import *
 import os
 import json
 
 serverPort = 50007 
-serverSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+serverSocket = socket(AF_INET,SOCK_STREAM)
 
 # fix 'Port' already in use error, due to improper quit of connections
-serverSocket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+serverSocket.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
 
 serverSocket.bind(('',serverPort))
 serverSocket.listen(1)

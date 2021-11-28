@@ -1,4 +1,4 @@
-import socket
+from socket import *
 import sys 
 
 host = 'localhost'
@@ -12,7 +12,7 @@ filename=sys.argv[1]
 #serverName=sys.argv[2] or host#sever name,here is my ip address
 #serverPort=int(sys.argv[3]) or serverPort #any port consistent with the server end
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+with socket(AF_INET, SOCK_STREAM) as s:
     s.connect((host, serverPort))
     request_header_1='GET /'
     request_header_2='''

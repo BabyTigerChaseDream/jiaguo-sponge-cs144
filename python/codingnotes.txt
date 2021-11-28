@@ -1,0 +1,7 @@
+1)encode & decode
+  encode when sendout , decode when receive
+2) header first message second 
+  be sure to send header content based on http protocol requests
+3) shutdown and close
+  shutdown stops wr/rd , close destroy the socket if no more reference to it 
+  

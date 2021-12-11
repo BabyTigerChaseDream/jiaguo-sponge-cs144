@@ -57,15 +57,16 @@ while True:
 
             remotehost = org_file_path.partition("/")[0]
             print('Host Name: ', remotehost)
+            
+            # header / msg in http
+            message='''GET /{path} HTTP/1.1\r\nConnection: {connectiontype}\r\nHost: {remoteserver}:{port}\r\n\r\n'''.format(
+                path='hello',
+                connectiontype='keep-alive',
+                remoteserver=remotehost,
+                port=80
+            )
 
-            # header messages in http
-            # fake remotehost
-            remotehost = 'localhost'
-            request_header_1='GET /'
-            request_header_2='''
-                        HTTP/1.1\nHost:{host}:{serverPort}\r\nConnection: keep-alive\n 
-                            Content-Type: text/html\r\n'''.format(host=remotehost,serverPort=80)
-            message=request_header_1+filename+request_header_2
+            print('[message]',message)
             
             try:
                 # webproxy is act as a client to remote socket 

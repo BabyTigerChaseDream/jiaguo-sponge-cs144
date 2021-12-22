@@ -23,10 +23,10 @@ class Email:
 
         # email info 
         self.uname = 'scarlettdiudiu@gmail.com'
-        self.pwd = '*****you#guess'
+        #self.pwd = '*****you#guess'
+        self.pwd = 'JaneEyre!0925'
         # receiver info 
-        #self.rcptname='scarlettdiudiu@gmail.com'
-        self.rcptname='ronl76065@gmail.com'
+        self.rcptname='scarlettdiudiu@gmail.com'
 
     def infoEncode(self, uname=None,  pwd=None):
         if not uname:
@@ -85,7 +85,7 @@ class Email:
         recv=self.ssl_csocket.recv(1024).decode() 
         print(recv)
 
-    def sendmail(self,rcptname=None):
+    def sendtxtmail(self,rcptname=None):
         if not rcptname:
             rcptname =  self.rcptname
         #'235 Authentication successful\r\n' 
@@ -123,6 +123,45 @@ class Email:
         #quit = "QUIT\r\n" 
         #self.ssl_csocket.send(quit.encode()) 
 
+    def sendfancymail(self,rcptname=None):
+        if not rcptname:
+            rcptname =  self.rcptname
+        #'235 Authentication successful\r\n' 
+        self.mailFromMsg = self.mailFrom.format(uname=self.uname)
+        self.ssl_csocket.send(self.mailFromMsg.encode()) 
+        recv=self.ssl_csocket.recv(1024).decode() 
+        print(recv)
+        #'250 Mail OK\r\n' 
+        self.rcptToMsg = self.rcptTo.format(rname=rcptname)
+        self.ssl_csocket.send(self.rcptToMsg.encode()) 
+        recv=self.ssl_csocket.recv(1024).decode() 
+        print(recv)
+        self.ssl_csocket.send(self.DataMsg.encode()) 
+        recv = self.ssl_csocket.recv(1024) 
+        recv = recv.decode() 
+        print("After DATA command: "+recv) 
+
+        # start content writing 
+        # image with right encoding 
+        send_text_with_image='from:{fromaddr}\nto:{rcptname}\nsubject:hello,you!\
+                            \nContent-Type:multipart/mixed;boundary="simple"\n\n--simple\n\
+                            Content-Type:text/html\n\n<h1>hello</h1>\
+                            <img src="https://pic3.zhimg.com/50/v2-29a01fdecc80b16e73160c40637a5e8c_hd.jpg">\n\n'.format(
+                                fromaddr = self.uname,
+                                rcptname = self.rcptname
+                            )
+        send_text_with_image=send_text_with_image.encode()+'--simple\n'.encode()+'Content-Type:image/JPEG\nContent-transfer-encoding:base64\n\n'.encode()
+        f=open('sweden.jpg','rb').read()
+        f=base64.b64encode(f) 
+        send_text_with_image+=f
+        send_text_with_image+='\n--simple\r\n'.encode()
+
+        temp=send_text_with_image
+        print(temp)
+        self.ssl_csocket.send(temp)
+
+        ############################
+
 if __name__ == '__main__':
     E = Email()
     E.infoEncode()
@@ -130,4 +169,5 @@ if __name__ == '__main__':
     E.sendhelo()
     E.starttls()
     E.authlogin()
-    E.sendmail()
+    E.sendtxtmail()
+    #E.sendfancymail()

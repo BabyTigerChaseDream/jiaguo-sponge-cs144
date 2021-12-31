@@ -9,7 +9,10 @@ using namespace std;
 int main() {
     try {
         {
+            
+            std::cout << "Start ByteStreamTestHarness Constructor ";
             ByteStreamTestHarness test{"construction", 15};
+            std::cout << "ByteStreamTestHarness Constructor Done";
             test.execute(InputEnded{false});
             test.execute(BufferEmpty{true});
             test.execute(Eof{false});

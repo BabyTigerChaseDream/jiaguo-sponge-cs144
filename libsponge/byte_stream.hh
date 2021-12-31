@@ -2,7 +2,7 @@
 #define SPONGE_LIBSPONGE_BYTE_STREAM_HH
 
 // added for lab0 byte_stream homework
-#include "utils/buffer.hh"
+#include "buffer.hh"
 
 #include <string>
 

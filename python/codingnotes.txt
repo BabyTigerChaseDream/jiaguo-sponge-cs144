@@ -1,0 +1,49 @@
+######## TCP/IP #########
+1)encode & decode
+  encode when sendout , decode when receive
+2) header first message second 
+  be sure to send header content based on http protocol requests
+3) shutdown and close
+  shutdown stops wr/rd , close destroy the socket if no more reference to it 
+
+####### SMTP mail client #########
+
+>>> from socket import *
+>>> import base64
+>>> faddr='codingmylife0925@163.com' 
+>>> uname=base64.b64encode(faddr.encode()).decode() 
+>>> password='Jia!0925'
+>>> pw=base64.b64encode(password.encode()).decode()
+>>> s=socket(AF_INET, SOCK_STREAM)
+>>> mailserver = "smtp.163.com"
+>>> mailport=25
+>>> s.connect((mailserver,mailport))
+>>> recv=s.recv(1024)
+>>> recv.decode()
+'220 163.com Anti-spam GT for Coremail System (163com[20141201])\r\n'
+>>> s.send('HELO 163\r\n'.encode())
+10
+>>> recv=s.recv(1024)
+>>> recv.decode()
+'250 OK\r\n'
+>>> s.send('AUTH LOGIN\r\n'.encode())
+12
+>>> recv=s.recv(1024)
+>>> recv.decode()
+'334 dXNlcm5hbWU6\r\n'
+>>> s.send((uname+'\r\n').encode())
+34
+>>> recv=s.recv(1024)
+>>> recv.decode()
+'334 UGFzc3dvcmQ6\r\n'
+>>> s.send((pw+'\r\n').encode())
+14
+>>> recv=s.recv(1024)
+>>> recv.decode()
+'535 Error: authentication failed\r\n'
+### change mail server ???
+>>> mailserver = "imap.163.com"
+>>> s.connect((mailserver,mailport))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+OSError: [Errno 106] Transport endpoint is already connected
